@@ -1,0 +1,95 @@
+import type { StackSectionContent } from "@/types/stack";
+
+export const stackSection: StackSectionContent = {
+  kicker: "Навыки",
+  title: "Не только React и TypeScript",
+  description:
+    "Собираю интерфейсы под задачу: от SPA и Nuxt до Bitrix, интеграций и автоматизации. Стек выбираю по продукту.",
+  blocks: [
+    {
+      title: "Frontend",
+      eyebrow: "Языки и фреймворки",
+      icon: "code",
+      tags: [
+        "JavaScript",
+        "TypeScript",
+        "React",
+        "Next.js",
+        "SSR / SSG",
+        "Vue / Nuxt",
+        "HTML / CSS",
+      ],
+    },
+    {
+      title: "Библиотеки и state",
+      eyebrow: "Состояние, данные, формы и графики",
+      icon: "layers",
+      tags: [
+        "Redux Toolkit",
+        "RTK Query",
+        "React Router",
+        "Zustand",
+        "React Hook Form",
+        "Chart.js",
+        "Framer Motion",
+        "React Context",
+      ],
+    },
+    {
+      title: "UI и дизайн-система",
+      eyebrow: "Вёрстка, компоненты и визуальная часть",
+      icon: "palette",
+      tags: [
+        "Tailwind",
+        "SCSS",
+        "Storybook",
+        "CSS Modules",
+        "Bootstrap",
+        "Figma",
+        "Кроссбраузерность",
+        "Адаптивность",
+      ],
+    },
+    {
+      title: "Инструменты",
+      eyebrow: "Как разрабатываю, проверяю и ускоряю работу",
+      icon: "wrench",
+      tags: [
+        "Git",
+        "Vite",
+        "Webpack",
+        "Jest",
+        "Docker",
+        "Cursor",
+        "Claude",
+        "Postman",
+        "Yandex DataLens",
+      ],
+    },
+    {
+      title: "Интеграции",
+      eyebrow: "Связка frontend с CMS, 1С и внешними сервисами",
+      icon: "rocket",
+      tags: [
+        "Bitrix",
+        "Bitrix24",
+        "Strapi CMS",
+        "1С",
+        "REST / API",
+        "Виджет СДЭК",
+        "Яндекс SuggestView",
+      ],
+    },
+    {
+      title: "Как работаю",
+      eyebrow: "Задачи, люди и ответственность",
+      icon: "people",
+      tags: [
+        "Оценка задач",
+        "Разбор задач до бизнес-цели",
+        "Сопровождение production-проектов",
+        "Коммуникация",
+      ],
+    },
+  ],
+};

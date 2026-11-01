@@ -1,0 +1,119 @@
+.button {
+  position: fixed;
+  right: max(1.2rem, calc((100vw - min(1440px, calc(100% - 2.4rem))) / 2));
+  bottom: 1.4rem;
+  z-index: 30;
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  color: var(--text);
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateY(10px);
+  transition:
+    opacity 0.25s ease,
+    transform 0.25s ease,
+    visibility 0.25s ease,
+    background 0.2s ease;
+}
+
+.button[data-visible="true"] {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: none;
+}
+
+.button svg {
+  width: 1.05rem;
+  height: 1.05rem;
+}
+
+@media (min-width: 1200px) {
+  .button.button {
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 5.5rem;
+    height: auto;
+    border-radius: 0;
+    background: transparent;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    box-shadow: none;
+    transform: none;
+    transition:
+      opacity 0.6s ease,
+      visibility 0.6s ease,
+      backdrop-filter 0.6s ease;
+  }
+
+  .button::before,
+  .button::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 0.6s ease;
+  }
+
+  .button::before {
+    background: linear-gradient(90deg,
+        transparent 0%,
+        rgba(255, 252, 247, 0.08) 42%,
+        rgba(255, 252, 247, 0.82) 100%);
+  }
+
+  /* Same surface as the stuck header (.glass). Opacity fades more smoothly than a background swap. */
+  .button::after {
+    box-shadow: rgba(255, 255, 255, 0.75) 0px 1px inset;
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.82) 0%, rgba(255, 252, 247, 0.78) 48%, rgba(247, 244, 238, 0.72) 100%);
+  }
+
+  .button[data-visible="true"] {
+    transform: none;
+  }
+
+  .button[data-visible="true"]::before {
+    opacity: 1;
+  }
+
+  .button.button:hover,
+  .button.button:focus-visible {
+    color: var(--text);
+    backdrop-filter: blur(22px) saturate(1.25);
+    -webkit-backdrop-filter: blur(22px) saturate(1.25);
+  }
+
+  .button:hover::before,
+  .button:focus-visible::before {
+    opacity: 0;
+  }
+
+  .button:hover::after,
+  .button:focus-visible::after {
+    opacity: 1;
+  }
+
+  .button svg {
+    position: relative;
+    z-index: 1;
+    width: 1.75rem;
+    height: 1.75rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  .button,
+  .button::before,
+  .button::after {
+    transition: none;
+  }
+}

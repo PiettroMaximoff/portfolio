@@ -1,0 +1,82 @@
+.list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--line);
+}
+
+.item {
+  display: grid;
+  grid-template-columns: 11rem minmax(0, 1fr) minmax(0, 1.6fr);
+  gap: 0.6rem 2rem;
+  padding: 1.4rem 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.period {
+  margin: 0.2rem 0 0;
+  color: var(--muted);
+  font-size: 0.86rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.head h3 {
+  margin: 0;
+  font-size: clamp(1.2rem, 2.2vw, 1.5rem);
+}
+
+.role {
+  margin: 0.2rem 0 0;
+  color: var(--accent-2);
+  font-weight: 600;
+  font-size: 0.92rem;
+}
+
+.text p {
+  margin: 0;
+}
+
+.text ul {
+  display: grid;
+  gap: 0.25rem;
+  margin: 0.6rem 0 0;
+  padding: 0;
+  list-style: none;
+  color: var(--muted);
+  font-size: 0.94rem;
+}
+
+.text li {
+  position: relative;
+  padding-left: 1rem;
+}
+
+.text li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.7em;
+  width: 0.4rem;
+  height: 1px;
+  background: currentColor;
+}
+
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 0.8rem !important;
+  font-weight: 650;
+  font-size: 0.9rem;
+}
+
+@media (max-width: 860px) {
+  .item {
+    grid-template-columns: 1fr;
+    gap: 0.4rem;
+  }
+
+  .period {
+    margin: 0;
+  }
+}

@@ -1,0 +1,108 @@
+.panel {
+  padding: clamp(1.4rem, 4vw, 2.3rem);
+  border-radius: calc(var(--radius) + 4px);
+}
+
+.panel h2 {
+  margin: 0 0 0.55rem;
+  font-size: clamp(1.7rem, 4vw, 2.4rem);
+}
+
+.panel p {
+  margin: 0;
+  max-width: 36rem;
+  color: var(--muted);
+}
+
+.links {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 0.7rem;
+  margin-top: 1.4rem;
+}
+
+.tile {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-width: 0;
+  padding: 0.8rem 0.85rem;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: rgba(255, 252, 247, 0.55);
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.tile:hover {
+  background: rgba(255, 255, 255, 0.86);
+  border-color: rgba(26, 25, 22, 0.22);
+}
+
+.icon {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 10px;
+  background: rgba(26, 25, 22, 0.06);
+  color: var(--text);
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-weight: 650;
+  letter-spacing: -0.04em;
+}
+
+.icon svg {
+  width: 1.2rem;
+  height: 1.2rem;
+}
+
+.tile > span:last-child {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  min-width: 0;
+}
+
+.label {
+  font-size: 0.92rem;
+  font-weight: 650;
+  line-height: 1.3;
+}
+
+.value {
+  overflow: hidden;
+  color: var(--muted);
+  font-size: 0.78rem;
+  line-height: 1.3;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.download {
+  background: #1c1b18;
+  border-color: #1c1b18;
+  color: #f6f3ee;
+}
+
+.download .icon {
+  background: rgba(255, 255, 255, 0.12);
+  color: #f6f3ee;
+}
+
+.download .value {
+  color: rgba(246, 243, 238, 0.72);
+}
+
+.download:hover {
+  background: #2a2824;
+  border-color: #2a2824;
+  color: #f6f3ee;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tile {
+    transition: none;
+  }
+}

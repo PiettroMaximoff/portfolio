@@ -1,0 +1,155 @@
+.wrap {
+  display: flex;
+  flex: 1;
+  width: 100%;
+  min-width: 0;
+  height: 100%;
+  transform-style: preserve-3d;
+}
+
+.card {
+  position: relative;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  min-height: 280px;
+  overflow: hidden;
+  border-radius: var(--radius);
+  border: 1px solid var(--line);
+  background: rgba(255, 252, 247, 0.92);
+  isolation: isolate;
+}
+
+.spotlight {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  mix-blend-mode: multiply;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.card:hover .spotlight {
+  opacity: 1;
+}
+
+.visual {
+  position: relative;
+  display: block;
+  min-height: 180px;
+  aspect-ratio: 16 / 9;
+  flex: 1;
+  overflow: hidden;
+  transform: scale(1.02);
+  transition: transform 0.55s ease;
+}
+
+.card:hover .visual {
+  transform: scale(1.08);
+}
+
+.cover {
+  object-fit: cover;
+  object-position: top center;
+}
+
+.count {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  padding: 0.25rem 0.6rem;
+  border-radius: 999px;
+  background: rgba(28, 27, 24, 0.78);
+  color: #f6f3ee;
+  font-size: 0.72rem;
+  font-weight: 600;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-top: 0.15rem;
+}
+
+.tags span {
+  padding: 0.18rem 0.55rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: #4e4a44;
+  font-size: 0.72rem;
+}
+
+.placeholder {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.body {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  padding: 1rem 1.05rem 1.1rem;
+  background: linear-gradient(180deg, rgba(255, 252, 247, 0.2), rgba(255, 252, 247, 0.96));
+}
+
+.meta {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.6rem;
+  color: var(--muted);
+  font-size: 0.78rem;
+}
+
+.role {
+  color: var(--accent-2);
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  letter-spacing: -0.03em;
+}
+
+.summary {
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+.cta {
+  margin-top: 0.35rem;
+  font-weight: 700;
+  font-size: 0.86rem;
+  color: var(--accent);
+  transition: transform 0.25s ease;
+}
+
+.card:hover .cta {
+  transform: translateX(6px);
+}
+
+@media (max-width: 860px) {
+  .card {
+    min-height: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .visual,
+  .cta,
+  .spotlight {
+    transition: none;
+  }
+
+  .card:hover .visual,
+  .card:hover .cta {
+    transform: none;
+  }
+}
