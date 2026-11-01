@@ -130,6 +130,37 @@ describe("ProjectGallery", () => {
       expect(slide("Телефон 2×")).toHaveStyle({ aspectRatio: "864 / 1645" });
     });
 
+    it("сверхдлинный мобильный кадр не превращается в узкую полоску", () => {
+      render(
+        <ProjectGallery
+          title="Проект"
+          images={[
+            { src: "/long.webp", alt: "Лендинг на телефоне", width: 375, height: 8668 },
+            { src: "/short.webp", alt: "Экран", width: 1920, height: 980 },
+          ]}
+        />,
+      );
+      // Пропорция 375 / 8668 дала бы рамку шириной в пару десятков пикселей: берём обычную рамку из стилей.
+      expect(slide("Лендинг на телефоне").style.aspectRatio).toBe("");
+      expect(screen.getByText("Длинный экран — откройте целиком")).toBeInTheDocument();
+    });
+
+    it("подсказка про длинный экран показывается только для длинных кадров", async () => {
+      const user = userEvent.setup();
+      render(
+        <ProjectGallery
+          title="Проект"
+          images={[
+            { src: "/short.webp", alt: "Экран", width: 1920, height: 980 },
+            { src: "/long.webp", alt: "Длинная страница", width: 1440, height: 6756 },
+          ]}
+        />,
+      );
+      expect(screen.queryByText("Длинный экран — откройте целиком")).toBeNull();
+      await user.click(screen.getByRole("button", { name: "Следующий скриншот" }));
+      expect(screen.getByText("Длинный экран — откройте целиком")).toBeInTheDocument();
+    });
+
     it("десктопный экран и длинная страница не получают пропорцию телефона", () => {
       render(
         <ProjectGallery

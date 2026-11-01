@@ -18,19 +18,27 @@ type ProjectGalleryProps = {
   title: string;
 };
 
-type ShotKind = "screen" | "page" | "phone";
+type ShotKind = "screen" | "page" | "phone" | "phoneLong";
 
 /** Сколько ждём новых событий прокрутки, прежде чем считать, что анимация закончилась. */
 const LOCK_TIMEOUT = 250;
 
+/** Выше этой пропорции (высота к ширине) мобильный кадр — не экран, а длинная страница целиком. */
+const LONG_PHONE_RATIO = 3;
+
 /** Длинные скриншоты страниц и мобильные экраны показываем по-разному. */
 function getKind(image: ProjectImage): ShotKind {
-  const tall = image.height / image.width > 1.6;
+  const ratio = image.height / image.width;
   // Мобильные скриншоты бывают и в @2x (около 860 px), а страницы сняты с десктопа от 1440 px.
-  if (image.width < 600 || (tall && image.width < 1000)) return "phone";
-  if (tall) return "page";
+  if (image.width < 600 || (ratio > 1.6 && image.width < 1000)) {
+    return ratio > LONG_PHONE_RATIO ? "phoneLong" : "phone";
+  }
+  if (ratio > 1.6) return "page";
   return "screen";
 }
+
+/** Длинные кадры в слайдере обрезаются по высоте, целиком их видно в полноэкранном просмотре. */
+const isLong = (kind: ShotKind) => kind === "page" || kind === "phoneLong";
 
 export function ProjectGallery({ images, title }: ProjectGalleryProps) {
   const [index, setIndex] = useState(0);
@@ -129,6 +137,8 @@ export function ProjectGallery({ images, title }: ProjectGalleryProps) {
 
   const current = images[index];
   const currentKind = getKind(current);
+  // В полноэкранном просмотре длинный мобильный кадр ведёт себя как обычный телефонный.
+  const stageKind = currentKind === "phoneLong" ? "phone" : currentKind;
 
   const onSliderKey = (event: KeyboardEvent<HTMLDivElement>) => {
     if (event.key === "ArrowRight") {
@@ -195,11 +205,11 @@ export function ProjectGallery({ images, title }: ProjectGalleryProps) {
                     src={image.src}
                     alt={image.alt}
                     fill
-                    sizes={kind === "phone" ? "320px" : "(max-width: 1120px) 100vw, 1120px"}
+                    sizes={kind === "phone" || kind === "phoneLong" ? "320px" : "(max-width: 1120px) 100vw, 1120px"}
                     preload={i === 0}
                     loading={i === 0 ? "eager" : "lazy"}
                   />
-                  {kind === "page" && <span className={styles.fade} aria-hidden="true" />}
+                  {isLong(kind) && <span className={styles.fade} aria-hidden="true" />}
                   <span className={styles.expand} aria-hidden="true">
                     <Icon name="expand" strokeWidth={1.8} />
                   </span>
@@ -228,7 +238,7 @@ export function ProjectGallery({ images, title }: ProjectGalleryProps) {
           </span>
           {current.alt}
         </p>
-        {currentKind === "page" && <span className={styles.hint}>Длинный экран — откройте целиком</span>}
+        {isLong(currentKind) && <span className={styles.hint}>Длинный экран — откройте целиком</span>}
       </div>
 
       {count > 1 && (
@@ -275,7 +285,7 @@ export function ProjectGallery({ images, title }: ProjectGalleryProps) {
 
             <div
               ref={stageRef}
-              className={`${styles.stage} ${styles[`stage-${currentKind}`]}`}
+              className={`${styles.stage} ${styles[`stage-${stageKind}`]}`}
               onPointerDown={onSwipeStart}
               onPointerUp={onSwipeEnd}
               onPointerCancel={() => (swipeRef.current = null)}
@@ -290,7 +300,7 @@ export function ProjectGallery({ images, title }: ProjectGalleryProps) {
                 alt={current.alt}
                 width={current.width}
                 height={current.height}
-                sizes={currentKind === "phone" ? "430px" : "100vw"}
+                sizes={stageKind === "phone" ? "430px" : "100vw"}
                 quality={85}
                 // Не растягиваем картинку шире её реального размера, иначе она размывается.
                 style={{ maxWidth: current.width }}
