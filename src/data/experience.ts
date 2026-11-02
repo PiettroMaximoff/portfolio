@@ -34,7 +34,7 @@ export const experience: ExperienceItem[] = [
     summary: "Аналитическая платформа Atlas и новая версия сайта компании.",
     points: [
       "Архитектура SPA, дашборды на Chart.js, динамические формы",
-      "Redux Toolkit, RTK Query, оптимизация производительности",
+      "Redux Toolkit, оптимизация производительности",
       "Сайт bizan.pro на Next.js и Strapi, работа с графикамив Yandex DataLens",
     ],
     link: { label: "bizan.pro", href: "https://bizan.pro/" },

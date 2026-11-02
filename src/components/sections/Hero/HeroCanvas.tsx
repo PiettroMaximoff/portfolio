@@ -252,6 +252,11 @@ export function HeroCanvas() {
     if (particleCount === 0) build(width || 1200);
     render();
 
+    // Канвас смонтирован прозрачным: читаем стиль, чтобы браузер зафиксировал начальное
+    // состояние, и только потом включаем проявление, иначе переход не сработает.
+    void getComputedStyle(canvas).opacity;
+    canvas.dataset.ready = "true";
+
     if (!reduce) {
       window.addEventListener("pointermove", onMove);
       frame = requestAnimationFrame(loop);
